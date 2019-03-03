@@ -46,6 +46,9 @@
 #' \item{ctime}{A numeric value for computation time.}
 #' \item{terms}{The terms object used.}
 #' \item{call}{The method call.}
+#' @examples
+#' data(dmet)
+#' fit.srm.logit(formula=fault~., data=dmet.ds1)
 #' @export
 
 fit.srm.logit <- function(formula, data, linkfun = "logit", offset = NULL, control = list(), ...) {
@@ -69,7 +72,7 @@ fit.srm.logit <- function(formula, data, linkfun = "logit", offset = NULL, contr
     NA
   )
 
-  tres <- system.time(result <- emfit(model, ldata, initialize = TRUE,
+  tres <- system.time(result <- Rsrat::emfit(model, ldata, initialize = TRUE,
     maxiter = con$maxiter, reltol = con$reltol, abstol = con$abstol,
     stopcond = con$stopcond, trace=con$trace, printsteps=con$printsteps))
   result <- c(result,
@@ -139,9 +142,9 @@ print.srm.logit.result <- function(x, digits = max(3, getOption("digits") - 3), 
 #' @export
 
 extractAIC.srm.logit.result <- function(fit, scale, k = 2, ...) {
-res <- eval(fit)
-aic = -2*res$llf + k * res$df
-return(c(res$df, aic))
+  res <- eval(fit)
+  aic = -2*res$llf + k * res$df
+  return(c(res$df, aic))
 }
 
 #' Extract the number of observations (S3 method)
@@ -155,5 +158,5 @@ return(c(res$df, aic))
 #' @export
 
 nobs.srm.logit.result <- function(object, ...) {
-return(nrow(object$data))
+  return(nrow(object$data))
 }

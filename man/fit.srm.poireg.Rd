@@ -92,6 +92,6 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
                      tester=tomcat5.tester,
                      webapps=tomcat5.webapps)
 results.tomcat5 <- lapply(data.tomcat5,
- function(d) fit.srm.nhpp(time=d$time, fault=d$fault, srm.names=c("gamma")))
+ function(d) Rsrat::fit.srm.nhpp(time=d$time, fault=d$fault, srm.names=c("gamma")))
 fit.srm.poireg(formula=~LOC+St, data=tomcat5.smet, srms=results.tomcat5)
 }

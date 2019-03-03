@@ -1,3 +1,7 @@
+# msrat 1.5.0
+
+* This is branched from Rsrat.
+
 # Rsrat 1.3.4
 
 * Bugfix: Fix an argument 'selection' on fir.srm.nhpp.

@@ -58,7 +58,7 @@
 #'                      tester=tomcat5.tester,
 #'                      webapps=tomcat5.webapps)
 #' results.tomcat5 <- lapply(data.tomcat5,
-#'  function(d) fit.srm.nhpp(time=d$time, fault=d$fault, srm.names=c("gamma")))
+#'  function(d) Rsrat::fit.srm.nhpp(time=d$time, fault=d$fault, srm.names=c("gamma")))
 #' fit.srm.poireg(formula=~LOC+St, data=tomcat5.smet, srms=results.tomcat5)
 #' @export
 
@@ -103,7 +103,7 @@ fit.srm.poireg <- function(formula, data, srms, names = NULL, linkfun = "log",
     warning("too many parameters: the number of metrics might be smaller than the number of projects.")
   }
 
-  tres <- system.time(result <- emfit(model, ldata, initialize = TRUE,
+  tres <- system.time(result <- Rsrat::emfit(model, ldata, initialize = TRUE,
     maxiter = con$maxiter, reltol = con$reltol, abstol = con$abstol,
     stopcond = con$stopcond, trace=con$trace, printsteps=con$printsteps))
   result <- c(result,
@@ -173,9 +173,9 @@ print.srm.poireg.result <- function(x, digits = max(3, getOption("digits") - 3),
 #' @export
 
 extractAIC.srm.poireg.result <- function(fit, scale, k = 2, ...) {
-res <- eval(fit)
-aic = -2*res$llf + k * res$df
-return(c(res$df, aic))
+  res <- eval(fit)
+  aic = -2*res$llf + k * res$df
+  return(c(res$df, aic))
 }
 
 #' Extract the number of observations (S3 method)
@@ -189,7 +189,7 @@ return(c(res$df, aic))
 #' @export
 
 nobs.srm.poireg.result <- function(object, ...) {
-return(nrow(object$data))
+  return(nrow(object$data))
 }
 
 #' @rdname fit.srm.poireg
@@ -234,7 +234,7 @@ fit.srm.poireg.penalized <- function(formula, data, srms, names = NULL, linkfun 
 
   model$set_penalized(lambda, K)
 
-  tres <- system.time(result <- emfit(model, ldata, initialize = TRUE,
+  tres <- system.time(result <- Rsrat::emfit(model, ldata, initialize = TRUE,
     maxiter = con$maxiter, reltol = con$reltol, abstol = con$abstol,
     stopcond = con$stopcond, trace=con$trace, printsteps=con$printsteps))
   result <- c(result,

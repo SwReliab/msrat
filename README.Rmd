@@ -4,17 +4,21 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-",
+  out.width = "100%"
 )
 ```
+# msrat
 
-# Rsrat
+msrat provides the package to evalute the software reliability from the fault data collected in the testing phase. The data used in msrat are the fault data with d-metrics and s-metrics.
 
-The goal of Rsrat is to ...
+The examples of d-metrics are the number of test cases, coverages, etc. for each time period such as a day and a week. They are the metrics to represent the software testing environment for the testing period, and dynamically change with the progress of software testing.
+
+S-metrics are the number of codes, complexity, etc. and are the metrics for the software products. They are assumed to be stable through whole the software testing.
 
 ## Installation
 
@@ -22,13 +26,32 @@ You can install Rsrat from github with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("okamumu/Rsrat")
+devtools::install_github("okamumu/msrat")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is an example of the estimation of software reliability growth models from a fault data (tohma). 
 
-```{r example}
-## basic example code
+```{r example1}
+### load library
+library(msrat)
+
+### load example data for d-metrics
+data(dmet)
+
+### dmet.ds1 consists of the number of days (day), the number of faults (fault), the number of testcases (tc), the cumulative number of testcases (ctc), the insrease of C0 coverage (cov) and C0 coverage (ccov).
+dmet.ds1
+
+### Esimate the model for d-metrics
+(result <- fit.srm.logit(formula=fault~., data=dmet.ds1))
+
+### Select metrics in terms of AIC
+(result.aic <- step(result))
+
+### load Rsrat for drawing the graph
+library(Rsrat)
+
+### Draw the number of faults for each day and the number of faults estimated by the model
+dmvfplot(fault=dmet.ds1$fault, dmvf=list(result.aic$srm))
 ```

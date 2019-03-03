@@ -1,17 +1,14 @@
-#' Rsrat: A Software Reliability Assessment Tool
+#' msrat: Metrics-Based Software Reliability Assessment Tool
 #'
-#' This package provides estimation programs for software reliability growth
-#' models, metrics-based software reliability growth models with logistic
-#' regression for dynamic metrics and Poisson regression for static metrics.
+#' This package provides estimation programs for metrics-based software
+#' reliability growth models with logistic regression for dynamic metrics
+#' and Poisson regression for static metrics.
 #'
 #' @docType package
-#' @name Rsrat
-#' @import R6 ggplot2
-#' @importFrom stats dlogis dnorm plogis pnorm qlogis qnorm
+#' @name msrat
+#' @import R6 Rsrat
 #' @importFrom stats nobs model.frame model.response model.matrix gaussian
 #' @importFrom Matrix Matrix
-#' @importFrom utils URLencode
-#' @importFrom httr GET content
 #' @importFrom Rcpp sourceCpp
-#' @useDynLib Rsrat
+#' @useDynLib msrat
 NULL
