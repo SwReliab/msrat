@@ -22,7 +22,7 @@ devtools::install_github("okamumu/msrat")
 Example
 -------
 
-This is an example of the estimation of software reliability growth models from a fault data (tohma).
+This is an example for reliability evaluation with d-metrics.
 
 ``` r
 ### load library
@@ -158,3 +158,253 @@ dmvfplot(fault=dmet.ds1$fault, dmvf=list(result.aic$srm))
 ```
 
 <img src="man/figures/README-example1-1.png" width="100%" />
+
+This is an example for reliability evaluation with s-metrics.
+
+``` r
+### load example data for d-metrics
+data(tomcat5)
+
+### S-metrics for modules: catalina, connector, jasper, servlets, tester and webapps
+#### LOC: Lines of code
+#### St: The number of statements
+#### Br: The number of branches
+#### Co: Percentage of comments
+#### Fn: The number of functions (methods)
+#### Mc: Maximum complexity
+#### Ac: Average complexity
+tomcat5.smet
+#>              LOC    St   Br   Co   Fn  Mc   Ac
+#> catalina  125462 39386 19.2 34.4 4543  90 2.79
+#> connector 168482 65829 19.2 26.9 5912 175 3.37
+#> jasper     41861 15557 19.2 26.8 1691  90 2.88
+#> servlets   15480  1944  8.0 66.5  400  26 1.45
+#> tester     12677  4750 19.7 30.2  409  54 3.36
+#> webapps    37782 12851  9.5 31.2 1035  39 2.32
+
+### Each module has the fault data (grouped data)
+tomcat5.catalina
+#>     time fault
+#> 1     31     0
+#> 2     30     0
+#> 3     31     0
+#> 4     31     0
+#> 5     30     0
+#> 6     31     0
+#> 7     30     0
+#> 8     31     2
+#> 9     31     0
+#> 10    28     1
+#> 11    31     0
+#> 12    30     0
+#> 13    31     0
+#> 14    30     0
+#> 15    31     0
+#> 16    31     1
+#> 17    30     1
+#> 18    31     3
+#> 19    30     8
+#> 20    31     6
+#> 21    31    12
+#> 22    28     6
+#> 23    31     9
+#> 24    30    11
+#> 25    31    10
+#> 26    30    13
+#> 27    31     7
+#> 28    31     7
+#> 29    30     6
+#> 30    31     6
+#> 31    30     9
+#> 32    31     2
+#> 33    31     8
+#> 34    28     7
+#> 35    31     5
+#> 36    30     7
+#> 37    31    10
+#> 38    30     4
+#> 39    31     5
+#> 40    31     5
+#> 41    30     2
+#> 42    31     3
+#> 43    30     1
+#> 44    31     3
+#> 45    31     4
+#> 46    29     1
+#> 47    31     6
+#> 48    30     2
+#> 49    31     3
+#> 50    30     5
+#> 51    31     1
+#> 52    31     5
+#> 53    30     4
+#> 54    31     3
+#> 55    30     4
+#> 56    31     2
+#> 57    31     1
+#> 58    28     1
+#> 59    31     3
+#> 60    30     5
+#> 61    31     2
+#> 62    30     0
+#> 63    31     3
+#> 64    31     1
+#> 65    30     1
+#> 66    31     8
+#> 67    30     1
+#> 68    31     0
+#> 69    31     2
+#> 70    28     1
+#> 71    31     3
+#> 72    30     1
+#> 73    31     0
+#> 74    30     1
+#> 75    31     0
+#> 76    31     1
+#> 77    30     2
+#> 78    31     1
+#> 79    30     1
+#> 80    31     1
+#> 81    31     2
+#> 82    28     1
+#> 83    31     0
+#> 84    30     1
+#> 85    31     0
+#> 86    30     0
+#> 87    31     2
+#> 88    31     1
+#> 89    30     0
+#> 90    31     0
+#> 91    30     0
+#> 92    31     1
+#> 93    31     0
+#> 94    29     1
+#> 95    31     0
+#> 96    30     1
+#> 97    31     0
+#> 98    30     0
+#> 99    31     2
+#> 100   31     0
+#> 101   30     0
+#> 102   31     0
+#> 103   30     0
+#> 104   31     0
+#> 105   31     0
+#> 106   28     0
+#> 107   31     0
+#> 108   30     0
+
+### List for fault data
+data.tomcat5 <- list(catalina=tomcat5.catalina,
+                     connector=tomcat5.connector,
+                     jasper=tomcat5.jasper,
+                     servlets=tomcat5.servlets,
+                     tester=tomcat5.tester,
+                     webapps=tomcat5.webapps)
+
+### Estimate NHPP model (gamma model) parameters using Rsrt
+# library(Rsrat)
+(results.tomcat5 <- lapply(data.tomcat5,
+                          function(d) fit.srm.nhpp(time=d$time,
+                                                   fault=d$fault,
+                                                   srm.names=c("gamma"))))
+#> $catalina
+#> Model name: GammaSRM
+#>     omega      shape       rate  
+#> 2.729e+02  4.677e+00  3.861e-03  
+#> Maximum LLF: -177.7182 
+#> AIC: 361.4365 
+#> Convergence: TRUE 
+#> 
+#> 
+#> $connector
+#> Model name: GammaSRM
+#>     omega      shape       rate  
+#> 89.335012   4.865692   0.003888  
+#> Maximum LLF: -110.3019 
+#> AIC: 226.6037 
+#> Convergence: TRUE 
+#> 
+#> 
+#> $jasper
+#> Model name: GammaSRM
+#>     omega      shape       rate  
+#> 74.042904   4.778298   0.004604  
+#> Maximum LLF: -92.44426 
+#> AIC: 190.8885 
+#> Convergence: TRUE 
+#> 
+#> 
+#> $servlets
+#> Model name: GammaSRM
+#>     omega      shape       rate  
+#> 57.031424   5.282532   0.004888  
+#> Maximum LLF: -83.21093 
+#> AIC: 172.4219 
+#> Convergence: TRUE 
+#> 
+#> 
+#> $tester
+#> Model name: GammaSRM
+#>    omega     shape      rate  
+#>      1.0  163562.2      84.6  
+#> Maximum LLF: -1.001187 
+#> AIC: 8.002374 
+#> Convergence: TRUE 
+#> 
+#> 
+#> $webapps
+#> Model name: GammaSRM
+#>     omega      shape       rate  
+#> 65.826028   2.752425   0.002343  
+#> Maximum LLF: -105.1848 
+#> AIC: 216.3696 
+#> Convergence: TRUE
+
+### Estimate s-metrics (LOC and St) parameters
+(result <- fit.srm.poireg(formula=~LOC+St, data=tomcat5.smet, srms=results.tomcat5))
+#>           X.Intercept.    LOC    St
+#> catalina             1 125462 39386
+#> connector            1 168482 65829
+#> jasper               1  41861 15557
+#> servlets             1  15480  1944
+#> tester               1  12677  4750
+#> webapps              1  37782 12851
+#> 
+#> Link function: log
+#>   (Intercept)           LOC            St 
+#>  3.715768e+00  5.507954e-05 -1.279337e-04 
+#> 
+#> catalina
+#> Model name: GammaSRM
+#> [1]  2.670e+02  4.680e+00  3.864e-03
+#> 
+#> connector
+#> Model name: GammaSRM
+#> [1]  96.924516   4.853124   0.003875
+#> 
+#> jasper
+#> Model name: GammaSRM
+#> [1]  56.327808   4.785058   0.004612
+#> 
+#> servlets
+#> Model name: GammaSRM
+#> [1]  75.165793   5.272732   0.004877
+#> 
+#> tester
+#> Model name: GammaSRM
+#> [1]  4.498e+01  2.211e+00  9.050e-05
+#> 
+#> webapps
+#> Model name: GammaSRM
+#> [1]  63.605977   2.760161   0.002353
+#> Maximum LLF: -579.6683 
+#> AIC: 1189.337 
+#> Convergence: TRUE
+
+### Draw 
+mvfplot(time=time, fault=fault, data=tomcat5.catalina,
+        mvf=list(results.tomcat5$catalina$srm, result$srm$srms$catalina))
+```
+
+<img src="man/figures/README-example2-1.png" width="100%" />

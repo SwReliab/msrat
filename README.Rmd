@@ -31,7 +31,7 @@ devtools::install_github("okamumu/msrat")
 
 ## Example
 
-This is an example of the estimation of software reliability growth models from a fault data (tohma). 
+This is an example for reliability evaluation with d-metrics.
 
 ```{r example1}
 ### load library
@@ -54,4 +54,46 @@ library(Rsrat)
 
 ### Draw the number of faults for each day and the number of faults estimated by the model
 dmvfplot(fault=dmet.ds1$fault, dmvf=list(result.aic$srm))
+```
+
+This is an example for reliability evaluation with s-metrics.
+
+```{r example2}
+### load example data for d-metrics
+data(tomcat5)
+
+### S-metrics for modules: catalina, connector, jasper, servlets, tester and webapps
+#### LOC: Lines of code
+#### St: The number of statements
+#### Br: The number of branches
+#### Co: Percentage of comments
+#### Fn: The number of functions (methods)
+#### Mc: Maximum complexity
+#### Ac: Average complexity
+tomcat5.smet
+
+### Each module has the fault data (grouped data)
+tomcat5.catalina
+
+### List for fault data
+data.tomcat5 <- list(catalina=tomcat5.catalina,
+                     connector=tomcat5.connector,
+                     jasper=tomcat5.jasper,
+                     servlets=tomcat5.servlets,
+                     tester=tomcat5.tester,
+                     webapps=tomcat5.webapps)
+
+### Estimate NHPP model (gamma model) parameters using Rsrt
+# library(Rsrat)
+(results.tomcat5 <- lapply(data.tomcat5,
+                          function(d) fit.srm.nhpp(time=d$time,
+                                                   fault=d$fault,
+                                                   srm.names=c("gamma"))))
+
+### Estimate s-metrics (LOC and St) parameters
+(result <- fit.srm.poireg(formula=~LOC+St, data=tomcat5.smet, srms=results.tomcat5))
+
+### Draw 
+mvfplot(time=time, fault=fault, data=tomcat5.catalina,
+        mvf=list(results.tomcat5$catalina$srm, result$srm$srms$catalina))
 ```

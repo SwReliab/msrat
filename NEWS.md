@@ -1,6 +1,7 @@
 # msrat 1.5.0
 
-* This is branched from Rsrat.
+* Refactoring: msrat is branched from Rsrat.
+* Readme.md is generated with rmarkdown.
 
 # Rsrat 1.3.4
 
