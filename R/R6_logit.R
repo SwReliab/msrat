@@ -179,6 +179,12 @@ dGLM <- R6::R6Class("dGLM",
       nonzeror <- rfault != 0
       sum((fault * log(mu))[nonzeron]) + sum((rfault * log(1-mu))[nonzeror]) -
         sum(lgamma(fault+1)) + sum(fault) * log(omega) - omega * (1 - prod(1-mu))
+    },
+    comp_error = function(res0, res1) {
+      sdiff <- res1$llf - res0$llf
+      aerror <- abs(res1$llf - res0$llf)
+      rerror <- aerror / abs(res0$llf)
+      c(aerror, rerror, sdiff)
     }
   )
 )

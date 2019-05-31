@@ -1,14 +1,16 @@
 Package: msrat
 Type: Package
 Title: A Metrics-Based Software Reliability Assessment Tool
-Version: 1.5.0
-Date: 2019-3-3
+Version: 1.5.1
+Date: 2019-6-1
 Author: Hiroyuki OKAMURA
 Maintainer: Hiroyuki OKAMURA <okamu@hiroshima-u.ac.jp>
 Description: This package provides estimation programs for metrics-based
   software reliability growth models with d-metrics and s-metrics.
+Depends: Rsrat (>= 1.5.4)
 LinkingTo: Rcpp
 Imports: R6, Rcpp, stats
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
+Remotes: okamumu/Rsrat

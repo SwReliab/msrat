@@ -1,16 +1,22 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-msrat
-=====
 
-msrat provides the package to evalute the software reliability from the fault data collected in the testing phase. The data used in msrat are the fault data with d-metrics and s-metrics.
+# msrat
 
-The examples of d-metrics are the number of test cases, coverages, etc. for each time period such as a day and a week. They are the metrics to represent the software testing environment for the testing period, and dynamically change with the progress of software testing.
+msrat provides the package to evalute the software reliability from the
+fault data collected in the testing phase. The data used in msrat are
+the fault data with d-metrics and s-metrics.
 
-S-metrics are the number of codes, complexity, etc. and are the metrics for the software products. They are assumed to be stable through whole the software testing.
+The examples of d-metrics are the number of test cases, coverages, etc.
+for each time period such as a day and a week. They are the metrics to
+represent the software testing environment for the testing period, and
+dynamically change with the progress of software testing.
 
-Installation
-------------
+S-metrics are the number of codes, complexity, etc. and are the metrics
+for the software products. They are assumed to be stable through whole
+the software testing.
+
+## Installation
 
 You can install Rsrat from github with:
 
@@ -19,14 +25,14 @@ You can install Rsrat from github with:
 devtools::install_github("okamumu/msrat")
 ```
 
-Example
--------
+## Example
 
 This is an example for reliability evaluation with d-metrics.
 
 ``` r
 ### load library
 library(msrat)
+#> Loading required package: Rsrat
 
 ### load example data for d-metrics
 data(dmet)
@@ -150,10 +156,7 @@ dmet.ds1
 #> AIC: 79.07438 
 #> Convergence: TRUE
 
-### load Rsrat for drawing the graph
-library(Rsrat)
-
-### Draw the number of faults for each day and the number of faults estimated by the model
+### Draw the number of faults for each day and the number of faults estimated by the model (dmvplot is in Rsrat package)
 dmvfplot(fault=dmet.ds1$fault, dmvf=list(result.aic$srm))
 ```
 
@@ -309,7 +312,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
                                                    fault=d$fault,
                                                    srm.names=c("gamma"))))
 #> $catalina
-#> Model name: GammaSRM
+#> Model name: gamma
 #>     omega      shape       rate  
 #> 2.729e+02  4.677e+00  3.861e-03  
 #> Maximum LLF: -177.7182 
@@ -318,7 +321,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #> 
 #> 
 #> $connector
-#> Model name: GammaSRM
+#> Model name: gamma
 #>     omega      shape       rate  
 #> 89.335012   4.865692   0.003888  
 #> Maximum LLF: -110.3019 
@@ -327,7 +330,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #> 
 #> 
 #> $jasper
-#> Model name: GammaSRM
+#> Model name: gamma
 #>     omega      shape       rate  
 #> 74.042904   4.778298   0.004604  
 #> Maximum LLF: -92.44426 
@@ -336,7 +339,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #> 
 #> 
 #> $servlets
-#> Model name: GammaSRM
+#> Model name: gamma
 #>     omega      shape       rate  
 #> 57.031424   5.282532   0.004888  
 #> Maximum LLF: -83.21093 
@@ -345,16 +348,16 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #> 
 #> 
 #> $tester
-#> Model name: GammaSRM
+#> Model name: gamma
 #>    omega     shape      rate  
-#>      1.0  163562.2      84.6  
+#>      1.0  163562.5      84.6  
 #> Maximum LLF: -1.001187 
 #> AIC: 8.002374 
 #> Convergence: TRUE 
 #> 
 #> 
 #> $webapps
-#> Model name: GammaSRM
+#> Model name: gamma
 #>     omega      shape       rate  
 #> 65.826028   2.752425   0.002343  
 #> Maximum LLF: -105.1848 
@@ -376,27 +379,27 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #>  3.715768e+00  5.507954e-05 -1.279337e-04 
 #> 
 #> catalina
-#> Model name: GammaSRM
+#> Model name: gamma
 #> [1]  2.670e+02  4.680e+00  3.864e-03
 #> 
 #> connector
-#> Model name: GammaSRM
+#> Model name: gamma
 #> [1]  96.924516   4.853124   0.003875
 #> 
 #> jasper
-#> Model name: GammaSRM
+#> Model name: gamma
 #> [1]  56.327808   4.785058   0.004612
 #> 
 #> servlets
-#> Model name: GammaSRM
+#> Model name: gamma
 #> [1]  75.165793   5.272732   0.004877
 #> 
 #> tester
-#> Model name: GammaSRM
+#> Model name: gamma
 #> [1]  4.498e+01  2.211e+00  9.050e-05
 #> 
 #> webapps
-#> Model name: GammaSRM
+#> Model name: gamma
 #> [1]  63.605977   2.760161   0.002353
 #> Maximum LLF: -579.6683 
 #> AIC: 1189.337 

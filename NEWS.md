@@ -1,3 +1,7 @@
+# msrat 1.5.1
+
+* Modify to fit to the latest Rsrat
+
 # msrat 1.5.0
 
 * Refactoring: msrat is branched from Rsrat.

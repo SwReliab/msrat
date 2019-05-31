@@ -160,6 +160,12 @@ sGLM <- R6::R6Class("sGLM",
     },
     llf = function(data) {
       sum(sapply(self$names, function(nm) self$srms[[nm]]$llf(self$srms[[nm]]$data)))
+    },
+    comp_error = function(res0, res1) {
+      sdiff <- res1$llf - res0$llf
+      aerror <- abs(res1$llf - res0$llf)
+      rerror <- aerror / abs(res0$llf)
+      c(aerror, rerror, sdiff)
     }
   )
 )

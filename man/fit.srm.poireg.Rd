@@ -72,8 +72,6 @@ The control argument is a list that can supply any of the following components:
 less than \emph{reltol} and the absolute error is less than \emph{abstol}.}
   \item{abstol}{A numeric value. The algorithm stops if the relative error is
 less than \emph{reltol} and the absolute error is less than \emph{abstol}.}
-  \item{stopcond}{A character string. \emph{stopcond} gives the criterion
-for the stop condition of the algorithm. Either llf or parameter is selected.}
   \item{trace}{A logical. If TRUE, the intermediate parameters are printed.}
   \item{printsteps}{An integer for print.}
 }

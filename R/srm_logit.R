@@ -9,8 +9,6 @@
 #' less than \emph{reltol} and the absolute error is less than \emph{abstol}.}
 #'   \item{abstol}{A numeric value. The algorithm stops if the relative error is
 #' less than \emph{reltol} and the absolute error is less than \emph{abstol}.}
-#'   \item{stopcond}{A character string. \emph{stopcond} gives the criterion
-#' for the stop condition of the algorithm. Either llf or parameter is selected.}
 #'   \item{trace}{A logical. If TRUE, the intermediate parameters are printed.}
 #'   \item{printsteps}{An integer for print.}
 #' }
@@ -74,7 +72,7 @@ fit.srm.logit <- function(formula, data, linkfun = "logit", offset = NULL, contr
 
   tres <- system.time(result <- Rsrat::emfit(model, ldata, initialize = TRUE,
     maxiter = con$maxiter, reltol = con$reltol, abstol = con$abstol,
-    stopcond = con$stopcond, trace=con$trace, printsteps=con$printsteps))
+    trace=con$trace, printsteps=con$printsteps))
   result <- c(result,
               list(
                 data=data,
@@ -99,7 +97,6 @@ srm.logit.options <- function() {
   list(maxiter = 10000,
     reltol = sqrt(.Machine$double.eps),
     abstol = 1.0e+200,
-    stopcond = "llf",
     trace = FALSE,
     printsteps = 50)
 }

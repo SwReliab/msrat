@@ -49,10 +49,7 @@ dmet.ds1
 ### Select metrics in terms of AIC
 (result.aic <- step(result))
 
-### load Rsrat for drawing the graph
-library(Rsrat)
-
-### Draw the number of faults for each day and the number of faults estimated by the model
+### Draw the number of faults for each day and the number of faults estimated by the model (dmvplot is in Rsrat package)
 dmvfplot(fault=dmet.ds1$fault, dmvf=list(result.aic$srm))
 ```
 
