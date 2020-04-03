@@ -22,7 +22,7 @@ You can install Rsrat from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("okamumu/msrat")
+devtools::install_github("SwReliab/msrat")
 ```
 
 ## Example
