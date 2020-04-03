@@ -1,3 +1,7 @@
+# msrat 1.5.2
+
+* Change organization of Rsrat
+
 # msrat 1.5.1
 
 * Modify to fit to the latest Rsrat
