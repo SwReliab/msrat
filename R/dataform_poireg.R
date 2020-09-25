@@ -37,11 +37,11 @@ faultdata.smet <- function(formula, data, names = NULL, offset = NULL) {
   m <- length(names)
 
   if (is.null(row.names(data))) {
-    data <- data[1:m,]
+    data <- data[1:m,,drop=FALSE]
     row.names(data) <- names
   } else {
     stopifnot(all(names %in% row.names(data)))
-    data <- data[names,]
+    data <- data[names,,drop=FALSE]
   }
 
   metrics <- model.matrix(formula, data)

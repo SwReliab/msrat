@@ -22,7 +22,7 @@ You can install Rsrat from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("SwReliab/msrat")
+devtools::install_github("okamumu/msrat")
 ```
 
 ## Example
@@ -87,10 +87,10 @@ dmet.ds1
 #> 
 #> Link function: logit
 #> 
-#>       omega  (Intercept)          day           tc          ctc  
-#>   66.033168    -3.671040     0.522465     0.017718    -0.006349  
-#>         cov         ccov  
-#>   -0.457267    -0.423316  
+#>       omega  (Intercept)          day           tc          ctc          cov  
+#>   66.033168    -3.671040     0.522465     0.017718    -0.006349    -0.457267  
+#>        ccov  
+#>   -0.423316  
 #> Maximum LLF: -34.44726 
 #> AIC: 82.89452 
 #> Convergence: TRUE
@@ -350,7 +350,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #> $tester
 #> Model name: gamma
 #>    omega     shape      rate  
-#>      1.0  163562.5      84.6  
+#>      1.0  163562.2      84.6  
 #> Maximum LLF: -1.001187 
 #> AIC: 8.002374 
 #> Convergence: TRUE 
