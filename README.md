@@ -18,11 +18,18 @@ the software testing.
 
 ## Installation
 
-You can install Rsrat from github with:
+You can install msrat from GitHub with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("okamumu/msrat")
+install.packages("devtools")
+devtools::install_github("SwReliab/msrat")
+```
+
+Alternatively, you can install msrat with remotes:
+
+``` r
+install.packages("remotes")
+remotes::install_github("SwReliab/msrat")
 ```
 
 ## Example
@@ -157,7 +164,7 @@ dmet.ds1
 #> Convergence: TRUE
 
 ### Draw the number of faults for each day and the number of faults estimated by the model (dmvplot is in Rsrat package)
-dmvfplot(fault=dmet.ds1$fault, dmvf=list(result.aic$srm))
+dmvfplot(fault=dmet.ds1$fault, srms=result.aic)
 ```
 
 <img src="man/figures/README-example1-1.png" width="100%" />
@@ -407,7 +414,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 
 ### Draw 
 mvfplot(time=time, fault=fault, data=tomcat5.catalina,
-        mvf=list(results.tomcat5$catalina$srm, result$srm$srms$catalina))
+        srms=list(results.tomcat5$catalina, result$srm$srms$catalina))
 ```
 
 <img src="man/figures/README-example2-1.png" width="100%" />

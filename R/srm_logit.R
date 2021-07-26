@@ -81,7 +81,7 @@ fit.srm.logit <- function(formula, data, linkfun = "logit", offset = NULL, contr
                 ctime=tres[1],
                 terms = attr(model.frame(formula, data), "terms"),
                 call=call))
-  class(result) <- "srm.logit.result"
+  class(result) <- c("srm.logit.result", "srm.nhpp.result")
   result
 }
 

@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // dggglm
 List dggglm(NumericMatrix A, NumericMatrix B, NumericVector d, const int NB);
 RcppExport SEXP _msrat_dggglm(SEXP ASEXP, SEXP BSEXP, SEXP dSEXP, SEXP NBSEXP) {

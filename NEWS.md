@@ -1,3 +1,11 @@
+# msrat 1.5.4
+
+* Change the basement version of Rsrat
+
+# msrat 1.5.3
+
+* Bugfix: fix a bug when the number of s-metrics is one
+
 # msrat 1.5.2
 
 * Change organization of Rsrat

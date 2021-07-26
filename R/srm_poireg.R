@@ -112,7 +112,7 @@ fit.srm.poireg <- function(formula, data, srms, names = NULL, linkfun = "log",
                 ctime=tres[1],
                 terms = attr(model.frame(formula, data), "terms"),
                 call=call))
-  class(result) <- "srm.poireg.result"
+  class(result) <- c("srm.poireg.result", "srm.nhpp.result")
   result
 }
 
@@ -242,6 +242,6 @@ fit.srm.poireg.penalized <- function(formula, data, srms, names = NULL, linkfun 
                 ctime=tres[1],
                 terms = attr(model.frame(formula, data), "terms"),
                 call=call))
-  class(result) <- "srm.poireg.result"
+  class(result) <- c("srm.poireg.result", "srm.nhpp.result")
   result
 }
