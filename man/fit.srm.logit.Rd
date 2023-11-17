@@ -3,12 +3,30 @@
 \name{fit.srm.logit}
 \alias{fit.srm.logit}
 \alias{srm.logit.options}
+\alias{fit.srm.logit.penalized}
 \title{Regression-based software reliability model with d-metrics}
 \usage{
-fit.srm.logit(formula, data, linkfun = "logit", offset = NULL,
-  control = list(), ...)
+fit.srm.logit(
+  formula,
+  data,
+  linkfun = "logit",
+  offset = NULL,
+  control = list(),
+  ...
+)
 
 srm.logit.options()
+
+fit.srm.logit.penalized(
+  formula,
+  data,
+  linkfun = "logit",
+  offset = NULL,
+  control = list(),
+  lambda = 1,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{formula}{An object of class formula. A symbolic description of the
@@ -26,6 +44,10 @@ be NULL or a numeric vector of length equal to the number of cases.}
 \item{control}{A list of control parameters. See Details.}
 
 \item{...}{Other parameters.}
+
+\item{lambda}{A numeric value for the penalized parameter.}
+
+\item{alpha}{A numeric value to select from L1 to L2 norm}
 }
 \value{
 A list with components;

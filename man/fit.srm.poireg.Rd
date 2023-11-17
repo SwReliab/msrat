@@ -6,14 +6,31 @@
 \alias{fit.srm.poireg.penalized}
 \title{Regression-based software reliability model with s-metrics}
 \usage{
-fit.srm.poireg(formula, data, srms, names = NULL, linkfun = "log",
-  offset = NULL, control = list(), ...)
+fit.srm.poireg(
+  formula,
+  data,
+  srms,
+  names = NULL,
+  linkfun = "log",
+  offset = NULL,
+  control = list(),
+  ...
+)
 
 srm.poireg.options()
 
-fit.srm.poireg.penalized(formula, data, srms, names = NULL,
-  linkfun = "log", offset = NULL, control = list(), lambda = 1,
-  K = NULL, ...)
+fit.srm.poireg.penalized(
+  formula,
+  data,
+  srms,
+  names = NULL,
+  linkfun = "log",
+  offset = NULL,
+  control = list(),
+  lambda = 1,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{formula}{An object of class formula. A symbolic description of the
@@ -38,7 +55,7 @@ be NULL or a numeric vector of length equal to the number of cases.}
 
 \item{lambda}{A numeric value for the penalized parameter.}
 
-\item{K}{A positive definite matrix to determine the penalized structure.}
+\item{alpha}{A numeric value to select from L1 to L2 norm}
 }
 \value{
 A list with components;

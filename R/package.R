@@ -10,5 +10,6 @@
 #' @importFrom stats nobs model.frame model.response model.matrix gaussian
 #' @importFrom Matrix Matrix
 #' @importFrom Rcpp sourceCpp
+#' @import glmnet
 #' @useDynLib msrat
 NULL

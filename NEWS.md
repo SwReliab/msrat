@@ -1,3 +1,7 @@
+# msrat 1.6.0
+
+* Use glmnet for penalized regression
+
 # msrat 1.5.4
 
 * Change the basement version of Rsrat

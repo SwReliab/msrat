@@ -3,7 +3,6 @@
 \docType{package}
 \name{msrat}
 \alias{msrat}
-\alias{msrat-package}
 \title{msrat: Metrics-Based Software Reliability Assessment Tool}
 \description{
 This package provides estimation programs for metrics-based software

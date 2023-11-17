@@ -5,8 +5,17 @@
 \alias{pnglm.options}
 \title{Penalized GLM}
 \usage{
-pnglm.fit(x, y, coef = NULL, offset = NULL, family = gaussian(),
-  lambda = 0, K = NULL, control = list(), ...)
+pnglm.fit(
+  x,
+  y,
+  coef = NULL,
+  offset = NULL,
+  family = gaussian(),
+  lambda = 0,
+  K = NULL,
+  control = list(),
+  ...
+)
 
 pnglm.options()
 }

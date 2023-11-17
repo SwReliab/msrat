@@ -30,7 +30,7 @@
 #' be NULL or a numeric vector of length equal to the number of cases.
 #' @param control A list of control parameters. See Details.
 #' @param lambda A numeric value for the penalized parameter.
-#' @param K A positive definite matrix to determine the penalized structure.
+#' @param alpha A numeric value to select from L1 to L2 norm
 #' @param ... Other parameters.
 #' @return A list with components;
 #' \item{initial}{A vector for initial parameters.}
@@ -193,7 +193,7 @@ nobs.srm.poireg.result <- function(object, ...) {
 #' @export
 
 fit.srm.poireg.penalized <- function(formula, data, srms, names = NULL, linkfun = "log",
-  offset = NULL, control = list(), lambda = 1, K = NULL, ...) {
+  offset = NULL, control = list(), lambda = 1, alpha = 1, ...) {
   call <- match.call()
   con <- srm.poireg.options()
   nmsC <- names(con)
@@ -229,7 +229,7 @@ fit.srm.poireg.penalized <- function(formula, data, srms, names = NULL, linkfun 
     NA
   )
 
-  model$set_penalized(lambda, K)
+  model$set_penalized(lambda, alpha)
 
   tres <- system.time(result <- Rsrat::emfit(model, ldata, initialize = TRUE,
     maxiter = con$maxiter, reltol = con$reltol, abstol = con$abstol,
@@ -239,6 +239,8 @@ fit.srm.poireg.penalized <- function(formula, data, srms, names = NULL, linkfun 
                 data=data,
                 linkfun=linkfun,
                 formula=formula,
+                lambda=lambda,
+                alpha=alpha,
                 ctime=tres[1],
                 terms = attr(model.frame(formula, data), "terms"),
                 call=call))

@@ -28,6 +28,8 @@
 #' component to be included in the linear predictor during fitting. This should
 #' be NULL or a numeric vector of length equal to the number of cases.
 #' @param control A list of control parameters. See Details.
+#' @param lambda A numeric value for the penalized parameter.
+#' @param alpha A numeric value to select from L1 to L2 norm
 #' @param ... Other parameters.
 #' @return A list with components;
 #' \item{initial}{A vector for initial parameters.}
@@ -157,3 +159,44 @@ extractAIC.srm.logit.result <- function(fit, scale, k = 2, ...) {
 nobs.srm.logit.result <- function(object, ...) {
   return(nrow(object$data))
 }
+
+#' @rdname fit.srm.logit
+#' @export
+
+fit.srm.logit.penalized <- function(formula, data, linkfun = "logit", offset = NULL,
+                                    control = list(), lambda = 1, alpha = 1, ...) {
+    call <- match.call()
+    con <- srm.logit.options()
+    nmsC <- names(con)
+    con[(namc <- names(control))] <- control
+    if (length(noNms <- namc[!namc %in% nmsC]))
+      warning("unknown names in control: ", paste(noNms, collapse = ", "))
+    
+    ## init parameters
+    ldata <- faultdata.dmet(formula, data, offset)
+
+    model <- switch(linkfun,
+                    "logit"=dGLM.penalized.logit$new(),
+                    "probit"=dGLM.penalized.probit$new(),
+                    "cloglog"=dGLM.penalized.cloglog$new(),
+                    NA
+    )
+    
+    model$set_penalized(lambda, alpha)
+    
+    tres <- system.time(result <- Rsrat::emfit(model, ldata, initialize = TRUE,
+                                               maxiter = con$maxiter, reltol = con$reltol, abstol = con$abstol,
+                                               trace=con$trace, printsteps=con$printsteps))
+    result <- c(result,
+                list(
+                  data=data,
+                  linkfun=linkfun,
+                  formula=formula,
+                  lambda=lambda,
+                  alpha=alpha,
+                  ctime=tres[1],
+                  terms = attr(model.frame(formula, data), "terms"),
+                  call=call))
+    class(result) <- c("srm.logit.result", "srm.nhpp.result")
+    result
+  }  
