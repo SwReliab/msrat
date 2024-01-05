@@ -15,6 +15,8 @@ sGLM.penalized <- R6::R6Class("sGLM.penalized",
       names(result) <- self$names
       
       llf <- sum(sapply(result, function(r) r$llf))
+      cf <- params[self$params.position$coefficients]
+      llf <- llf - length(result) * self$lambda * ((1-self$alpha) * sum(cf^2) / 2 + self$alpha * sum(abs(cf)))
       total <- sapply(result, function(r) r$total)
       
       for (nm in self$names) {
@@ -30,7 +32,7 @@ sGLM.penalized <- R6::R6Class("sGLM.penalized",
       }
       newparams[self$params.position$coefficients] <- coef(result)[,1]
       
-      pdiff <- newparams - params
+      pdiff <- abs(newparams - params)
       list(param=newparams, pdiff=pdiff, llf=llf, total=NULL)
     },
     # em = function(params, data, ...) {

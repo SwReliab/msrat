@@ -462,9 +462,103 @@ dmet.ds1
 ### Esimate the model for d-metrics
 ### lambda is the hyper parameter to determine the magniture of penalty.
 ### alpha is the parameter to determine the lorm; alpha=1 means L1 norm, alpha=0 indicates L2 norm
-wopt <- getOption("warn")
-options(warn = -1)
-(result <- fit.srm.logit.penalized(formula=fault~., data=dmet.ds1, lambda=0.01, alpha=1))
+(result <- fit.srm.logit.penalized(formula=fault~., data=dmet.ds1, lambda=0.1, alpha=1))
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 8 -4.815128e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 9 -8.356620e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 10 -9.025693e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 11 -8.494761e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 12 -7.515602e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 13 -6.431391e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 14 -5.394990e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 15 -4.468176e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 16 -3.668910e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 17 -2.994591e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 18 -2.433695e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 19 -1.971607e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 20 -1.593485e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 21 -1.285575e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 22 -1.035740e-03
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 23 -8.335721e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 24 -6.703120e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 25 -5.386789e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 26 -4.326751e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 27 -3.473916e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 28 -2.788294e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 29 -2.237423e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 30 -1.795024e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 31 -1.439869e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 32 -1.154836e-04
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 33 -9.261331e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 34 -7.426617e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 35 -5.954981e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 36 -4.774711e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 37 -3.828210e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 38 -3.069233e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 39 -2.460664e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 40 -1.972720e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 41 -1.581508e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 42 -1.267859e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 43 -1.016403e-05
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 44 -8.148117e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 45 -6.531988e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 46 -5.236378e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 47 -4.197732e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 48 -3.365090e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 49 -2.697600e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 50 -2.162506e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 51 -1.733550e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 52 -1.389680e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 53 -1.114019e-06
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 54 -8.930379e-07
+#> Warning in Rsrat::emfit(model, ldata, initialize = TRUE, maxiter =
+#> con$maxiter, : LLF decreses: dGLM.penalized.logit 55 -7.158911e-07
 #>    fault X.Intercept. day  tc ctc   cov  ccov
 #> 1      3            1   1   5   5 0.018 0.018
 #> 2     16            1   2 175 180 0.409 0.427
@@ -490,13 +584,12 @@ options(warn = -1)
 #> Link function: logit
 #> 
 #>       omega  (Intercept)          day           tc          ctc          cov  
-#>  112.419523    -3.455493     0.000000     0.006046     0.000000     0.745824  
+#>      78.673       -2.348        0.000        0.000        0.000        0.000  
 #>        ccov  
-#>    0.000000  
-#> Maximum LLF: -42.89942 
-#> AIC: 99.79884 
+#>       0.000  
+#> Maximum LLF: -58.88721 
+#> AIC: 131.7744 
 #> Convergence: TRUE
-options(warn = wopt)
 
 ### Draw the number of faults for each day and the number of faults estimated by the model (dmvplot is in Rsrat package)
 dmvfplot(fault=dmet.ds1$fault, srms=list(result$srm))
@@ -705,8 +798,6 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 #> Convergence: TRUE
 
 ### Estimate s-metrics parameters with penalty
-wopt <- getOption("warn")
-options(warn = -1)
 (result <- fit.srm.poireg.penalized(formula=~., data=tomcat5.smet, srms=results.tomcat5, lambda=1))
 #>           X.Intercept.    LOC    St   Br   Co   Fn  Mc   Ac
 #> catalina             1 125462 39386 19.2 34.4 4543  90 2.79
@@ -718,9 +809,9 @@ options(warn = -1)
 #> 
 #> Link function: log
 #>   (Intercept)           LOC            St            Br            Co 
-#>  3.7120628429  0.0000000000  0.0000000000  0.0836116150  0.0000000000 
+#>  3.7120308051  0.0000000000  0.0000000000  0.0836159762  0.0000000000 
 #>            Fn            Mc            Ac 
-#>  0.0004273624 -0.0188146028  0.0000000000 
+#>  0.0004273504 -0.0188145514  0.0000000000 
 #> 
 #> catalina
 #> Model name: gamma
@@ -728,27 +819,26 @@ options(warn = -1)
 #> 
 #> connector
 #> Model name: gamma
-#> [1]  94.766574   4.856735   0.003879
+#> [1]  94.765592   4.856737   0.003879
 #> 
 #> jasper
 #> Model name: gamma
-#> [1]  77.227946   4.777069   0.004602
+#> [1]  77.230726   4.777068   0.004602
 #> 
 #> servlets
 #> Model name: gamma
-#> [1]  58.132276   5.281945   0.004888
+#> [1]  58.132240   5.281945   0.004888
 #> 
 #> tester
 #> Model name: gamma
-#> [1]  9.165e+01  2.219e+00  6.455e-05
+#> [1]  9.166e+01  2.200e+00  6.298e-05
 #> 
 #> webapps
 #> Model name: gamma
-#> [1]  67.689004   2.745854   0.002334
-#> Maximum LLF: -574.8666 
-#> AIC: 1189.733 
+#> [1]  67.688933   2.745854   0.002334
+#> Maximum LLF: -597.7553 
+#> AIC: 1235.511 
 #> Convergence: TRUE
-options(warn = wopt)
 
 ### Draw 
 mvfplot(time=time, fault=fault, data=tomcat5.catalina,

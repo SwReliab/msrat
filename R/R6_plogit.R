@@ -24,16 +24,16 @@ dGLM.penalized <- R6::R6Class("dGLM.penalized",
                         family=binomial(link=private$linkfun), offset=data$offset,
                         lambda=self$lambda, alpha=self$alpha, ...)
       options(warn = wopt)
-      newparams <- c(total, coef(result)[,1])
-      names(newparams) <- c("omega", names(coef(result)[,1]))
+      cf <- coef(result)[,1]
+      newparams <- c(total, cf)
+      names(newparams) <- c("omega", names(cf))
       pdiff <- abs(params - newparams)
       llf <- self$llf(data, omega=omega, mu=mu)
+      llf <- llf - self$lambda * ((1-self$alpha) * sum(cf^2) / 2 + self$alpha * sum(abs(cf)))
       list(param=newparams, pdiff=pdiff, llf=llf, total=total)
     },
     llf = function(data, fault, omega, mu) {
       super$llf(data, fault, omega, mu)
-      # b <- super$coefficients()
-      # tmp - self$lambda * ((1-self$alpha) * sum(b^2) / 2 + self$alpha * sum(abs(b)))
     }
   )
 )

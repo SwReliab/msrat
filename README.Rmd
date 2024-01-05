@@ -119,10 +119,7 @@ dmet.ds1
 ### Esimate the model for d-metrics
 ### lambda is the hyper parameter to determine the magniture of penalty.
 ### alpha is the parameter to determine the lorm; alpha=1 means L1 norm, alpha=0 indicates L2 norm
-wopt <- getOption("warn")
-options(warn = -1)
 (result <- fit.srm.logit.penalized(formula=fault~., data=dmet.ds1, lambda=0.01, alpha=1))
-options(warn = wopt)
 
 ### Draw the number of faults for each day and the number of faults estimated by the model (dmvplot is in Rsrat package)
 dmvfplot(fault=dmet.ds1$fault, srms=list(result$srm))
@@ -161,10 +158,7 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
                                                    srm.names=c("gamma"))))
 
 ### Estimate s-metrics parameters with penalty
-wopt <- getOption("warn")
-options(warn = -1)
 (result <- fit.srm.poireg.penalized(formula=~., data=tomcat5.smet, srms=results.tomcat5, lambda=1))
-options(warn = wopt)
 
 ### Draw 
 mvfplot(time=time, fault=fault, data=tomcat5.catalina,
