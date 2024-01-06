@@ -141,6 +141,10 @@ dGLM <- R6::R6Class("dGLM",
       self$df <- length(self$params)
     },
     set_params = function(params) { self$params <- params },
+    set_omega = function(params, x) {
+      params[1L] <- x
+      params
+    },
     set_data = function(data) { self$data <- data },
     em = function(params, data, ...) {
       omega <- params[1]

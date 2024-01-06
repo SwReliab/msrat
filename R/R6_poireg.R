@@ -5,7 +5,8 @@
 #' @return Object of \code{\link{R6Class}} with methods for software reliability model with s-metrics.
 #' @format \code{\link{R6Class}} object.
 #' @field srms A list for srms.
-#' @field params A numeric vector for the regression coefficients.
+#' @field coef A numeric vector for the regression coefficients.
+#' @field faults A numeric vector of the number of total faults.
 #' @field df An integer for the degrees of freedom of the model (total).
 #' @field data Data to esimate parameters.
 #'
@@ -30,32 +31,13 @@ NULL
 #' @rdname sGLM
 sGLM <- R6::R6Class("sGLM",
   private = list(
-    linkfun = NA,
-    x = 1,
-    clear.params = function(nm) {
-      self$params <- numeric(0)
-      private$x <- 1
-    },
-    add.params = function(nm, params) {
-      if (length(params) != 0) {
-        self$params <- c(self$params, params)
-        self$params.position[[nm]] <- private$x:(private$x+length(params)-1)
-        private$x <- private$x + length(params)
-      }
-      else {
-        self$params.position[[nm]] <- c()
-      }
-    },
-    get.params = function(params, nm) {
-      params[self$params.position[[nm]]]
-    }
+    linkfun = NA
   ),
   public = list(
     name = NA,
     names = NULL,
     srms = NULL,
     params = NA,
-    params.position = list(),
     df = NULL,
     data = NULL,
     print = function(digits = max(3, getOption("digits") - 3), ...) {
@@ -68,12 +50,13 @@ sGLM <- R6::R6Class("sGLM",
       }
     },
     omega = function() {
-      result <- sapply(self$names, function(nm) self$params[self$params.position[[nm]]][1L])
+      result <- sapply(self$names, function(nm) self$srms[[nm]]$omega())
       names(result) <- self$names
       result
     },
     coefficients = function() {
-      result <- self$params[self$params.position$coefficients]
+      stopifnot(any(names(self$params) == "coef"))
+      result <- self$params[["coef"]]
       names(result) <- colnames(self$data$metrics)
       result
     },
@@ -107,55 +90,50 @@ sGLM <- R6::R6Class("sGLM",
         }
       }
 
-      private$clear.params()
-      for (nm in self$names) {
-        private$add.params(nm, self$srms[[nm]]$params)
-      }
-      private$add.params("coefficients", coefficients)
-
-      self$df <- sum(sapply(srms, function(m) m$df-1L))  + length(self$params.position$coefficients)
+      self$params <- lapply(self$names, function(nm) self$srms[[nm]]$params)
+      names(self$params) <- self$names
+      self$params[["coef"]] <- coefficients
+      self$df <- sum(sapply(srms, function(m) m$df-1L))  + length(self$params[["coef"]])
     },
     init_params = function(data) {
       stopifnot(all(self$names %in% data$names))
-      private$clear.params()
-      for (nm in self$names) {
-        self$srms[[nm]]$init_params(self$srms[[nm]]$data)
-        private$add.params(nm, self$srms[[nm]]$params)
-      }
-      private$add.params("coefficients", numeric(data$nmetrics))
-      self$df <- sum(sapply(self$srms, function(m) m$df-1L))  + length(self$params.position$coefficients)
+      self$params <- lapply(self$names,
+                            function(nm) self$srms[[nm]]$init_params(self$srms[[nm]]$data))
+      names(self$params) <- self$names
+      self$params[["coef"]] <- numeric(data$nmetrics)
+      self$df <- sum(sapply(self$srms, function(m) m$df-1L))  + length(self$params[["coef"]])
 
-      self$set_params(self$em(self$params, data)$param)
+      res <- self$em(self$params, data)
+      self$set_params(res$param)
     },
     set_params = function(params) {
-      self$params <- params
       for (nm in self$names) {
-        self$srms[[nm]]$set_params(private$get.params(params, nm))
+        self$srms[[nm]]$set_params(params[[nm]])
       }
+      self$params <- params
     },
     set_data = function(data) { self$data <- data },
     em = function(params, data, ...) {
-      newparams <- params
-      result <- lapply(self$names, function(nm) self$srms[[nm]]$em(private$get.params(params, nm), self$srms[[nm]]$data, ...))
-      names(result) <- self$names
+      srmresult <- lapply(self$names,
+                       function(nm) self$srms[[nm]]$em(params[[nm]], self$srms[[nm]]$data, ...))
+      names(srmresult) <- self$names
 
-      llf <- sum(sapply(result, function(r) r$llf))
-      total <- sapply(result, function(r) r$total)
-
-      for (nm in self$names) {
-        newparams[self$params.position[[nm]]] <- result[[nm]]$param
-      }
+      llf <- sum(sapply(srmresult, function(r) r$llf))
+      total <- sapply(srmresult, function(r) r$total)
 
       wopt <- getOption("warn")
       options(warn = -1)
-      result <- glm.fit(x=data$metrics, y=total, family=poisson(link=private$linkfun), ...)
+      regresult <- glm.fit(x=data$metrics, y=total, family=poisson(link=private$linkfun), ...)
       options(warn = wopt)
+      newparams <- list()
       for (nm in self$names) {
-        newparams[self$params.position[[nm]]][1L] <- result$fitted.values[nm]
+        omega <- regresult$fitted.values[nm]
+        pp <- srmresult[[nm]]$param
+        newparams[[nm]] <- self$srms[[nm]]$set_omega(pp, omega)
       }
-      newparams[self$params.position$coefficients] <- result$coefficients
+      newparams[["coef"]] <- regresult$coefficients
 
-      pdiff <- newparams - params
+      pdiff <- abs(newparams[["coef"]] - params[["coef"]]) # should be changed
       list(param=newparams, pdiff=pdiff, llf=llf, total=NULL)
     },
     llf = function(data) {

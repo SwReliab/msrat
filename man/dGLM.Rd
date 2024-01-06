@@ -74,6 +74,7 @@ Class for NHPP-based software reliability model with d-metrics
 \item \href{#method-new}{\code{dGLM$new()}}
 \item \href{#method-init_params}{\code{dGLM$init_params()}}
 \item \href{#method-set_params}{\code{dGLM$set_params()}}
+\item \href{#method-set_omega}{\code{dGLM$set_omega()}}
 \item \href{#method-set_data}{\code{dGLM$set_data()}}
 \item \href{#method-em}{\code{dGLM$em()}}
 \item \href{#method-llf}{\code{dGLM$llf()}}
@@ -172,6 +173,15 @@ Class for NHPP-based software reliability model with d-metrics
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_omega"></a>}}
+\if{latex}{\out{\hypertarget{method-set_omega}{}}}
+\subsection{Method \code{set_omega()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{dGLM$set_omega(params, x)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_data"></a>}}
 \if{latex}{\out{\hypertarget{method-set_data}{}}}
 \subsection{Method \code{set_data()}}{
@@ -250,6 +260,7 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 }
 \out{</details>}
@@ -297,6 +308,7 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 }
 \out{</details>}
@@ -344,6 +356,7 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 }
 \out{</details>}
@@ -374,6 +387,7 @@ The objects of this class are cloneable with this method.
 \itemize{
 \item \href{#method-set_penalized}{\code{dGLM.penalized$set_penalized()}}
 \item \href{#method-em}{\code{dGLM.penalized$em()}}
+\item \href{#method-llf}{\code{dGLM.penalized$llf()}}
 \item \href{#method-clone}{\code{dGLM.penalized$clone()}}
 }
 }
@@ -386,12 +400,12 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="ffp">}\href{../../msrat/html/dGLM.html#method-ffp}{\code{msrat::dGLM$ffp()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="init_params">}\href{../../msrat/html/dGLM.html#method-init_params}{\code{msrat::dGLM$init_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="initialize">}\href{../../msrat/html/dGLM.html#method-initialize}{\code{msrat::dGLM$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="llf">}\href{../../msrat/html/dGLM.html#method-llf}{\code{msrat::dGLM$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="mvf">}\href{../../msrat/html/dGLM.html#method-mvf}{\code{msrat::dGLM$mvf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="omega">}\href{../../msrat/html/dGLM.html#method-omega}{\code{msrat::dGLM$omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 }
 \out{</details>}
@@ -411,6 +425,15 @@ The objects of this class are cloneable with this method.
 \subsection{Method \code{em()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{dGLM.penalized$em(params, data, ...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-llf"></a>}}
+\if{latex}{\out{\hypertarget{method-llf}{}}}
+\subsection{Method \code{llf()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{dGLM.penalized$llf(data, fault, omega, mu)}\if{html}{\out{</div>}}
 }
 
 }
@@ -450,14 +473,15 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="ffp">}\href{../../msrat/html/dGLM.html#method-ffp}{\code{msrat::dGLM$ffp()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="init_params">}\href{../../msrat/html/dGLM.html#method-init_params}{\code{msrat::dGLM$init_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="initialize">}\href{../../msrat/html/dGLM.html#method-initialize}{\code{msrat::dGLM$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="llf">}\href{../../msrat/html/dGLM.html#method-llf}{\code{msrat::dGLM$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="mvf">}\href{../../msrat/html/dGLM.html#method-mvf}{\code{msrat::dGLM$mvf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="omega">}\href{../../msrat/html/dGLM.html#method-omega}{\code{msrat::dGLM$omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="em">}\href{../../msrat/html/dGLM.penalized.html#method-em}{\code{msrat::dGLM.penalized$em()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="llf">}\href{../../msrat/html/dGLM.penalized.html#method-llf}{\code{msrat::dGLM.penalized$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="set_penalized">}\href{../../msrat/html/dGLM.penalized.html#method-set_penalized}{\code{msrat::dGLM.penalized$set_penalized()}}\out{</span>}
 }
 \out{</details>}
@@ -498,14 +522,15 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="ffp">}\href{../../msrat/html/dGLM.html#method-ffp}{\code{msrat::dGLM$ffp()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="init_params">}\href{../../msrat/html/dGLM.html#method-init_params}{\code{msrat::dGLM$init_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="initialize">}\href{../../msrat/html/dGLM.html#method-initialize}{\code{msrat::dGLM$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="llf">}\href{../../msrat/html/dGLM.html#method-llf}{\code{msrat::dGLM$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="mvf">}\href{../../msrat/html/dGLM.html#method-mvf}{\code{msrat::dGLM$mvf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="omega">}\href{../../msrat/html/dGLM.html#method-omega}{\code{msrat::dGLM$omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="em">}\href{../../msrat/html/dGLM.penalized.html#method-em}{\code{msrat::dGLM.penalized$em()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="llf">}\href{../../msrat/html/dGLM.penalized.html#method-llf}{\code{msrat::dGLM.penalized$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="set_penalized">}\href{../../msrat/html/dGLM.penalized.html#method-set_penalized}{\code{msrat::dGLM.penalized$set_penalized()}}\out{</span>}
 }
 \out{</details>}
@@ -546,14 +571,15 @@ The objects of this class are cloneable with this method.
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="ffp">}\href{../../msrat/html/dGLM.html#method-ffp}{\code{msrat::dGLM$ffp()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="init_params">}\href{../../msrat/html/dGLM.html#method-init_params}{\code{msrat::dGLM$init_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="initialize">}\href{../../msrat/html/dGLM.html#method-initialize}{\code{msrat::dGLM$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="llf">}\href{../../msrat/html/dGLM.html#method-llf}{\code{msrat::dGLM$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="mvf">}\href{../../msrat/html/dGLM.html#method-mvf}{\code{msrat::dGLM$mvf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="omega">}\href{../../msrat/html/dGLM.html#method-omega}{\code{msrat::dGLM$omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="print">}\href{../../msrat/html/dGLM.html#method-print}{\code{msrat::dGLM$print()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="residual">}\href{../../msrat/html/dGLM.html#method-residual}{\code{msrat::dGLM$residual()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_data">}\href{../../msrat/html/dGLM.html#method-set_data}{\code{msrat::dGLM$set_data()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_omega">}\href{../../msrat/html/dGLM.html#method-set_omega}{\code{msrat::dGLM$set_omega()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM" data-id="set_params">}\href{../../msrat/html/dGLM.html#method-set_params}{\code{msrat::dGLM$set_params()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="em">}\href{../../msrat/html/dGLM.penalized.html#method-em}{\code{msrat::dGLM.penalized$em()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="llf">}\href{../../msrat/html/dGLM.penalized.html#method-llf}{\code{msrat::dGLM.penalized$llf()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="msrat" data-topic="dGLM.penalized" data-id="set_penalized">}\href{../../msrat/html/dGLM.penalized.html#method-set_penalized}{\code{msrat::dGLM.penalized$set_penalized()}}\out{</span>}
 }
 \out{</details>}
