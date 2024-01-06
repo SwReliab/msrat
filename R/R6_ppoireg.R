@@ -11,16 +11,15 @@ sGLM.penalized <- R6::R6Class("sGLM.penalized",
     },
     em = function(params, data, ...) {
       newparams <- params
-      result <- lapply(self$names, function(nm) self$srms[[nm]]$em(private$get.params(params, nm), self$srms[[nm]]$data, ...))
+      result <- lapply(self$names,
+                       function(nm) self$srms[[nm]]$em(params[[nm]], self$srms[[nm]]$data, ...))
       names(result) <- self$names
       
       llf <- sum(sapply(result, function(r) r$llf))
-      cf <- params[self$params.position$coefficients]
-      llf <- llf - length(result) * self$lambda * ((1-self$alpha) * sum(cf^2) / 2 + self$alpha * sum(abs(cf)))
       total <- sapply(result, function(r) r$total)
       
       for (nm in self$names) {
-        newparams[self$params.position[[nm]]] <- result[[nm]]$param
+        newparams[[nm]] <- result[[nm]]$param
       }
       
       wopt <- getOption("warn")
@@ -28,35 +27,18 @@ sGLM.penalized <- R6::R6Class("sGLM.penalized",
       result <- glmnet::glmnet(x=data$metrics[,-1], y=total, family=poisson(link=private$linkfun), lambda=self$lambda, alpha=self$alpha, ...)
       options(warn = wopt)
       for (nm in self$names) {
-        newparams[self$params.position[[nm]]][1L] <- predict(result, newx=data$metrics[,-1], type="response")[nm,1] # result$fitted.values[nm]
+        if (any(class(self$srms[[nm]]) %in% "CPHSRM")) {
+          newparams[[nm]]$omega <- predict(result, newx=data$metrics[,-1], type="response")[nm,1]
+        }
+        else {
+          newparams[[nm]][1L] <- predict(result, newx=data$metrics[,-1], type="response")[nm,1] # should be changed
+        }
       }
-      newparams[self$params.position$coefficients] <- coef(result)[,1]
-      
-      pdiff <- abs(newparams - params)
+      newparams[["coef"]] <- coef(result)[,1]
+
+      pdiff <- abs(newparams[["coef"]] - params[["coef"]]) # should be changed
       list(param=newparams, pdiff=pdiff, llf=llf, total=NULL)
     },
-    # em = function(params, data, ...) {
-    #   newparams <- params
-    # 
-    #   result <- lapply(self$names, function(nm) self$srms[[nm]]$em(private$get.params(params, nm), self$srms[[nm]]$data, ...))
-    #   names(result) <- self$names
-    # 
-    #   llf <- sum(sapply(result, function(r) r$llf))
-    #   total <- sapply(result, function(r) r$total)
-    #   for (nm in self$names) {
-    #     newparams[self$params.position[[nm]]] <- result[[nm]]$param
-    #   }
-    # 
-    #   result <- pnglm.fit(x=data$metrics, y=total, family=poisson(link=private$linkfun),
-    #     lambda=self$lambda, K=self$K)
-    #   for (nm in self$names) {
-    #     newparams[self$params.position[[nm]]][1L] <- result$fitted.values[nm]
-    #   }
-    #   newparams[self$params.position$coefficients] <- result$coefficients
-    # 
-    #   pdiff <- newparams - params
-    #   list(param=newparams, pdiff=pdiff, llf=llf, total=NULL)
-    # },
     llf = function(data) {
       sum(sapply(self$names, function(nm) self$srms[[nm]]$llf(self$srms[[nm]]$data)))
     },
