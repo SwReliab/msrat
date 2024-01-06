@@ -10,31 +10,24 @@ sGLM.penalized <- R6::R6Class("sGLM.penalized",
       self$alpha <- alpha
     },
     em = function(params, data, ...) {
-      newparams <- params
-      result <- lapply(self$names,
+      srmresult <- lapply(self$names,
                        function(nm) self$srms[[nm]]$em(params[[nm]], self$srms[[nm]]$data, ...))
-      names(result) <- self$names
+      names(srmresult) <- self$names
       
-      llf <- sum(sapply(result, function(r) r$llf))
-      total <- sapply(result, function(r) r$total)
-      
-      for (nm in self$names) {
-        newparams[[nm]] <- result[[nm]]$param
-      }
+      llf <- sum(sapply(srmresult, function(r) r$llf))
+      total <- sapply(srmresult, function(r) r$total)
       
       wopt <- getOption("warn")
       options(warn = -1)
-      result <- glmnet::glmnet(x=data$metrics[,-1], y=total, family=poisson(link=private$linkfun), lambda=self$lambda, alpha=self$alpha, ...)
+      regresult <- glmnet::glmnet(x=data$metrics[,-1], y=total, family=poisson(link=private$linkfun), lambda=self$lambda, alpha=self$alpha, ...)
       options(warn = wopt)
+      newparams <- list()
       for (nm in self$names) {
-        if (any(class(self$srms[[nm]]) %in% "CPHSRM")) {
-          newparams[[nm]]$omega <- predict(result, newx=data$metrics[,-1], type="response")[nm,1]
-        }
-        else {
-          newparams[[nm]][1L] <- predict(result, newx=data$metrics[,-1], type="response")[nm,1] # should be changed
-        }
+        omega <- predict(regresult, newx=data$metrics[,-1], type="response")[nm,1]
+        params <- srmresult[[nm]]$param
+        newparams[[nm]] <- self$srms[[nm]]$set_omega(params, omega)
       }
-      newparams[["coef"]] <- coef(result)[,1]
+      newparams[["coef"]] <- coef(regresult)[,1]
 
       pdiff <- abs(newparams[["coef"]] - params[["coef"]]) # should be changed
       list(param=newparams, pdiff=pdiff, llf=llf, total=NULL)

@@ -23,7 +23,9 @@ Class for software reliability model with s-metrics
 \describe{
 \item{\code{srms}}{A list for srms.}
 
-\item{\code{params}}{A numeric vector for the regression coefficients.}
+\item{\code{coef}}{A numeric vector for the regression coefficients.}
+
+\item{\code{faults}}{A numeric vector of the number of total faults.}
 
 \item{\code{df}}{An integer for the degrees of freedom of the model (total).}
 

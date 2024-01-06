@@ -113,31 +113,24 @@ sGLM <- R6::R6Class("sGLM",
     },
     set_data = function(data) { self$data <- data },
     em = function(params, data, ...) {
-      newparams <- params
-      result <- lapply(self$names,
+      srmresult <- lapply(self$names,
                        function(nm) self$srms[[nm]]$em(params[[nm]], self$srms[[nm]]$data, ...))
-      names(result) <- self$names
+      names(srmresult) <- self$names
 
-      llf <- sum(sapply(result, function(r) r$llf))
-      total <- sapply(result, function(r) r$total)
-
-      for (nm in self$names) {
-        newparams[[nm]] <- result[[nm]]$param
-      }
+      llf <- sum(sapply(srmresult, function(r) r$llf))
+      total <- sapply(srmresult, function(r) r$total)
 
       wopt <- getOption("warn")
       options(warn = -1)
-      result <- glm.fit(x=data$metrics, y=total, family=poisson(link=private$linkfun), ...)
+      regresult <- glm.fit(x=data$metrics, y=total, family=poisson(link=private$linkfun), ...)
       options(warn = wopt)
+      newparams <- list()
       for (nm in self$names) {
-        if (any(class(self$srms[[nm]]) %in% "CPHSRM")) {
-          newparams[[nm]]$omega <- result$fitted.values[nm]
-        }
-        else {
-          newparams[[nm]][1L] <- result$fitted.values[nm] # should be changed
-        }
+        omega <- regresult$fitted.values[nm]
+        params <- srmresult[[nm]]$param
+        newparams[[nm]] <- self$srms[[nm]]$set_omega(params, omega)
       }
-      newparams[["coef"]] <- result$coefficients
+      newparams[["coef"]] <- regresult$coefficients
 
       pdiff <- abs(newparams[["coef"]] - params[["coef"]]) # should be changed
       list(param=newparams, pdiff=pdiff, llf=llf, total=NULL)
