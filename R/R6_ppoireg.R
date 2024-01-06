@@ -24,8 +24,8 @@ sGLM.penalized <- R6::R6Class("sGLM.penalized",
       newparams <- list()
       for (nm in self$names) {
         omega <- predict(regresult, newx=data$metrics[,-1], type="response")[nm,1]
-        params <- srmresult[[nm]]$param
-        newparams[[nm]] <- self$srms[[nm]]$set_omega(params, omega)
+        pp <- srmresult[[nm]]$param
+        newparams[[nm]] <- self$srms[[nm]]$set_omega(pp, omega)
       }
       newparams[["coef"]] <- coef(regresult)[,1]
 

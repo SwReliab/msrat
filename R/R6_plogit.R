@@ -29,7 +29,7 @@ dGLM.penalized <- R6::R6Class("dGLM.penalized",
       names(newparams) <- c("omega", names(cf))
       pdiff <- abs(params - newparams)
       llf <- self$llf(data, omega=omega, mu=mu)
-      llf <- llf - self$lambda * ((1-self$alpha) * sum(cf^2) / 2 + self$alpha * sum(abs(cf)))
+      # llf <- llf - self$lambda * ((1-self$alpha) * sum(cf^2) / 2 + self$alpha * sum(abs(cf)))
       list(param=newparams, pdiff=pdiff, llf=llf, total=total)
     },
     llf = function(data, fault, omega, mu) {

@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 ```
 # msrat
 
-msrat provides the package to evalute the software reliability from the fault data collected in the testing phase. The data used in msrat are the fault data with d-metrics and s-metrics.
+`msrat` is a tool designed to assess software reliability based on fault data gathered during the testing phase. This tool utilizes two types of metrics: d-metrics and s-metrics, both essential for a comprehensive evaluation.
 
-The examples of d-metrics are the number of test cases, coverages, etc. for each time period such as a day and a week. They are the metrics to represent the software testing environment for the testing period, and dynamically change with the progress of software testing.
+The d-metrics include variables like the number of test cases and coverage levels, recorded over specific time periods (e.g., daily or weekly). These metrics primarily reflect the software testing environment and are subject to change as testing progresses, capturing the dynamic nature of the testing process.
 
-S-metrics are the number of codes, complexity, etc. and are the metrics for the software products. They are assumed to be stable through whole the software testing.
+On the other hand, s-metrics focus on the software product itself. These include metrics such as the number of code lines and the complexity of the software. Unlike d-metrics, s-metrics are generally stable throughout the testing process, providing a consistent basis for evaluating the software's inherent qualities.
 
 ## Installation
 
@@ -63,7 +63,7 @@ dmvfplot(fault=dmet.ds1$fault, srms=result.aic)
 This is an example for reliability evaluation with s-metrics.
 
 ```{r example2}
-### load example data for d-metrics
+### load example data for s-metrics
 data(tomcat5)
 
 ### S-metrics for modules: catalina, connector, jasper, servlets, tester and webapps
@@ -100,6 +100,21 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 ### Draw 
 mvfplot(time=time, fault=fault, data=tomcat5.catalina,
         srms=list(results.tomcat5$catalina, result$srm$srms$catalina))
+
+mvfplot(time=time, fault=fault, data=tomcat5.connector,
+        srms=list(results.tomcat5$connector, result$srm$srms$connector))
+
+mvfplot(time=time, fault=fault, data=tomcat5.jasper,
+        srms=list(results.tomcat5$jasper, result$srm$srms$jasper))
+
+mvfplot(time=time, fault=fault, data=tomcat5.servlets,
+        srms=list(results.tomcat5$servlets, result$srm$srms$servlets))
+
+mvfplot(time=time, fault=fault, data=tomcat5.tester,
+        srms=list(results.tomcat5$tester, result$srm$srms$tester))
+
+mvfplot(time=time, fault=fault, data=tomcat5.webapps,
+        srms=list(results.tomcat5$webapps, result$srm$srms$webapps))
 ```
 
 ## Examples for penalized MLE
@@ -126,7 +141,7 @@ dmvfplot(fault=dmet.ds1$fault, srms=list(result$srm))
 ```
 
 ```{r example4}
-### load example data for d-metrics
+### load example data for s-metrics
 data(tomcat5)
 
 ### S-metrics for modules: catalina, connector, jasper, servlets, tester and webapps
@@ -153,9 +168,9 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 ### Estimate NHPP model (gamma model) parameters using Rsrt
 # library(Rsrat)
 (results.tomcat5 <- lapply(data.tomcat5,
-                          function(d) fit.srm.nhpp(time=d$time,
+                          function(d) fit.srm.cph(time=d$time,
                                                    fault=d$fault,
-                                                   srm.names=c("gamma"))))
+                                                   phase=1:10)))
 
 ### Estimate s-metrics parameters with penalty
 (result <- fit.srm.poireg.penalized(formula=~., data=tomcat5.smet, srms=results.tomcat5, lambda=1))
@@ -163,4 +178,19 @@ data.tomcat5 <- list(catalina=tomcat5.catalina,
 ### Draw 
 mvfplot(time=time, fault=fault, data=tomcat5.catalina,
         srms=list(results.tomcat5$catalina, result$srm$srms$catalina))
+
+mvfplot(time=time, fault=fault, data=tomcat5.connector,
+        srms=list(results.tomcat5$connector, result$srm$srms$connector))
+
+mvfplot(time=time, fault=fault, data=tomcat5.jasper,
+        srms=list(results.tomcat5$jasper, result$srm$srms$jasper))
+
+mvfplot(time=time, fault=fault, data=tomcat5.servlets,
+        srms=list(results.tomcat5$servlets, result$srm$srms$servlets))
+
+mvfplot(time=time, fault=fault, data=tomcat5.tester,
+        srms=list(results.tomcat5$tester, result$srm$srms$tester))
+
+mvfplot(time=time, fault=fault, data=tomcat5.webapps,
+        srms=list(results.tomcat5$webapps, result$srm$srms$webapps))
 ```

@@ -6,7 +6,7 @@
 #'
 #' @docType package
 #' @name msrat
-#' @import R6 Rsrat
+#' @import R6 Rsrat Rphsrm
 #' @importFrom stats nobs model.frame model.response model.matrix gaussian
 #' @importFrom Matrix Matrix
 #' @importFrom Rcpp sourceCpp

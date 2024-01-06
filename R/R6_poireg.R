@@ -55,6 +55,7 @@ sGLM <- R6::R6Class("sGLM",
       result
     },
     coefficients = function() {
+      stopifnot(any(names(self$params) == "coef"))
       result <- self$params[["coef"]]
       names(result) <- colnames(self$data$metrics)
       result
@@ -127,8 +128,8 @@ sGLM <- R6::R6Class("sGLM",
       newparams <- list()
       for (nm in self$names) {
         omega <- regresult$fitted.values[nm]
-        params <- srmresult[[nm]]$param
-        newparams[[nm]] <- self$srms[[nm]]$set_omega(params, omega)
+        pp <- srmresult[[nm]]$param
+        newparams[[nm]] <- self$srms[[nm]]$set_omega(pp, omega)
       }
       newparams[["coef"]] <- regresult$coefficients
 

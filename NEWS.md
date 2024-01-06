@@ -1,3 +1,7 @@
+# msrat 1.6.1
+
+* Change it to use Rphsrm for Poireg models
+
 # msrat 1.6.0
 
 * Use glmnet for penalized regression
